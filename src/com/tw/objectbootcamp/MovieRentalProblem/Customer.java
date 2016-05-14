@@ -22,12 +22,16 @@ public class Customer {
     }
 
     public String getStatement() {
+
+        return "Total Amount : " + getTotalAmount() + "\n" + "Total Points Earned: " + getTotalPoints() + "\n";
+    }
+
+    private int getTotalPoints() {
         int totalPoints = 0;
         for (Rental rental : rentalList) {
             totalPoints  += rental.calculatePoints();
         }
-
-        return "Total Amount : " + getTotalAmount() + "\n" + "Total Points Earned: " + totalPoints + "\n";
+        return totalPoints;
     }
 
     public double getTotalAmount(){
