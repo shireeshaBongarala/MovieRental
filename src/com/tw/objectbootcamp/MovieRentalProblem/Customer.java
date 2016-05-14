@@ -22,14 +22,20 @@ public class Customer {
     }
 
     public String getStatement() {
-        double totalAmount = 0;
         int totalPoints = 0;
         for (Rental rental : rentalList) {
-            totalAmount += rental.calculateAmount();
             totalPoints  += rental.calculatePoints();
         }
 
-        return "Total Amount : " + totalAmount + "\n" + "Total Points Earned: " + totalPoints + "\n";
+        return "Total Amount : " + getTotalAmount() + "\n" + "Total Points Earned: " + totalPoints + "\n";
+    }
+
+    public double getTotalAmount(){
+        double totalAmount =0;
+        for(Rental rental : rentalList){
+            totalAmount+= rental.calculateAmount();
+        }
+        return totalAmount;
     }
 
 }
