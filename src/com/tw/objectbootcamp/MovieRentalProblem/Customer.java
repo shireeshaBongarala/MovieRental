@@ -22,36 +22,49 @@ public class Customer {
     }
 
     public String getStatement() {
-        //calculates total amount, total points and returns the statement
         double totalAmount = 0;
-        int points = 0;
+        int totalPoints = 0;
         for (Rental rental : rentalList) {
-            switch (rental.get_movie().get_priceCode()) {
-                case Movie.REGULAR:
-                    totalAmount += 20;
-                    if (rental.get_daysRented() > 2) {
-                        totalAmount += (rental.get_daysRented() - 2) * 15;
-                    }
-                    break;
-                case Movie.CHILDRENS:
-                    totalAmount += 15;
-                    if (rental.get_daysRented() > 2) {
-                        totalAmount += (rental.get_daysRented() - 2) * 10;
-                    }
-                    break;
-                case Movie.NEW_RELEASE:
-                    totalAmount += 50;
-                    if (rental.get_daysRented() > 2) {
-                        totalAmount += (rental.get_daysRented() - 2) * 25;
-                        points += rental.get_daysRented() - 2;
-                    }
-                    break;
-
-            }
-            points++;
-
+            totalAmount += calculateAmount(rental);
+            totalPoints  += calculatePoints(rental);
         }
 
-        return "Total Amount : " + totalAmount + "\n" + "Total Points Earned: " + points + "\n";
+        return "Total Amount : " + totalAmount + "\n" + "Total Points Earned: " + totalPoints + "\n";
+    }
+
+    private int calculatePoints(Rental rental) {
+        int points =0;
+        if(rental.get_movie().get_priceCode()== Movie.NEW_RELEASE){
+            points += rental.get_daysRented() - 2;
+        }
+        points++;
+        return points;
+    }
+
+    private double calculateAmount(Rental rental) {
+        double amount =0;
+        switch (rental.get_movie().get_priceCode()) {
+            case Movie.REGULAR:
+                amount += 20;
+                if (rental.get_daysRented() > 2) {
+                    amount += (rental.get_daysRented() - 2) * 15;
+                }
+                break;
+            case Movie.CHILDRENS:
+                amount += 15;
+                if (rental.get_daysRented() > 2) {
+                    amount += (rental.get_daysRented() - 2) * 10;
+                }
+                break;
+            case Movie.NEW_RELEASE:
+                amount += 50;
+                if (rental.get_daysRented() > 2) {
+                    amount += (rental.get_daysRented() - 2) * 25;
+
+                }
+                break;
+
+        }
+        return amount;
     }
 }
