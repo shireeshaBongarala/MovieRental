@@ -3,7 +3,7 @@ package com.tw.objectbootcamp.MovieRentalProblem;
 
 public class Rental {
 
-    private Movie _movie;
+    Movie _movie;
     private int _daysRented;
 
     public Rental(Movie _movie, int _daysRented) {
@@ -19,33 +19,6 @@ public class Rental {
         return _daysRented;
     }
 
-    public double calculateAmount() {
-        double amount =0;
-        switch (get_movie().get_priceCode()) {
-            case Movie.REGULAR:
-                amount += 20;
-                if (get_daysRented() > 2) {
-                    amount += (get_daysRented() - 2) * 15;
-                }
-                break;
-            case Movie.CHILDRENS:
-                amount += 15;
-                if (get_daysRented() > 2) {
-                    amount += (get_daysRented() - 2) * 10;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                amount += 50;
-                if (get_daysRented() > 2) {
-                    amount += (get_daysRented() - 2) * 25;
-
-                }
-                break;
-
-        }
-        return amount;
-    }
-
     public int calculatePoints() {
         int points =0;
         if(get_movie().get_priceCode()== Movie.NEW_RELEASE){
@@ -53,5 +26,9 @@ public class Rental {
         }
         points++;
         return points;
+    }
+
+    public double calculateAmount(){
+        return _movie.calculateAmount(_daysRented);
     }
 }

@@ -21,4 +21,31 @@ public class Movie {
     public int get_priceCode() {
         return _priceCode;
     }
+
+    public double calculateAmount(int daysRented) {
+        double amount =0;
+        switch (get_priceCode()) {
+            case REGULAR:
+                amount += 20;
+                if (daysRented > 2) {
+                    amount += (daysRented - 2) * 15;
+                }
+                break;
+            case CHILDRENS:
+                amount += 15;
+                if (daysRented > 2) {
+                    amount += (daysRented - 2) * 10;
+                }
+                break;
+            case NEW_RELEASE:
+                amount += 50;
+                if (daysRented > 2) {
+                    amount += (daysRented - 2) * 25;
+
+                }
+                break;
+
+        }
+        return amount;
+    }
 }
